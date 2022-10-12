@@ -1,0 +1,212 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+ 
+ 
+#define ll long long
+#define ld long double
+#define rep(i,a,b) for(ll i=a;i<b;i++)
+#define repb(i,a,b) for(ll i=a;i>=b;i--)
+#define err() cout<<"--------------------------"<<endl; 
+#define errA(A) for(auto i:A)   cout<<i<<" ";cout<<endl;
+#define err1(a) cout<<#a<<" "<<a<<endl
+ 
+ 
+ 
+#define err2(a,b) cout<<#a<<" "<<a<<" "<<#b<<" "<<b<<endl
+#define err3(a,b,c) cout<<#a<<" "<<a<<" "<<#b<<" "<<b<<" "<<#c<<" "<<c<<endl
+#define err4(a,b,c,d) cout<<#a<<" "<<a<<" "<<#b<<" "<<b<<" "<<#c<<" "<<c<<" "<<#d<<" "<<d<<endl
+#define pb push_back
+#define all(A)  A.begin(),A.end()
+#define allr(A)    A.rbegin(),A.rend()
+#define ft first
+#define sd second
+#define MOD 1000000007
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define V vector<ll>
+#define S set<ll>
+#define VV vector<V>
+#define Vpll vector<pll>
+ #define yupp cout<<"YES"<<endl;
+#define nope cout<<"NO"<<endl;
+#define endl "\n"
+bool sortbysec(const pair<int,int> &a,const pair<int,int> &b) 
+{ 
+    return (a.second < b.second); 
+} 
+int parent(int i,V &a)
+{
+    if(a[i]==i)
+        return i;
+    return parent(a[i],a);
+}
+void make_par(V &a,int x,int y)
+{
+    int para=parent(x,a);
+    int parb=parent(y,a);
+    a[parb]=para;
+}
+// // int comb[1001][1001];
+// // rep(i,0,1001)
+// // {
+// // 	rep(j,0,1001)
+// // 	{
+// // 		if(i==0 || j==0)
+// // 		{
+// // 			comb[i][j]=1;
+// // 		}
+// // 		else
+// // 		{
+// // 			comb[i][j]=comb[i-1][j-1]+comb[i-1][j];
+// // 		}
+// // 	}
+// // }
+ll binaryexp(ll a,ll b,ll i)
+{
+	if(b==0)
+		return 1LL;
+	if(b==1)
+		return a;
+	ll k=binaryexp(a,b/2,i);
+	if(b&1)
+	{
+		return (((k*k)%i)*a)%i;
+	}
+	else
+		return (k*k)%i;
+}
+ll mini(ll a, ll b)
+{
+	if(a>b)
+		return b;
+	return a;
+}
+ll maxi(ll a, ll b)
+{
+	if(a>b)
+		return a;
+	return b;
+}
+int binarys(pii a[], int x,int n)
+{
+	int l=0,r=n;
+	while(l<r)
+	{
+		int mid=(l+r)/2;
+		if(a[mid].ft==x)
+			return a[mid].sd;
+		if(a[mid].ft>x)
+		{
+			r=mid;
+		}
+		else
+		{
+			l=mid+1;
+		}
+	}
+	if(a[l].ft==x)
+			return a[l].sd;
+	return -1;
+}
+int main()
+    {
+ 
+        #ifndef ONLINE_JUDGE
+         clock_t tStart = clock();
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+        #endif
+        int t;
+        // cin>>t;
+        t=1;  
+        // int *dp=new int[1000001];
+        // 	rep(i,0,1000001)
+        // 	{
+        // 		dp[i]=0;
+        // 	}
+        // 	rep(i,1,1000001)
+        // 	{
+        // 		for(int j=i;j<=1000001;j+=i)
+        // 		{
+        // 			dp[j]+=1;
+        // 		}
+        // 	}
+        	// rep(i,0,1000001)
+        	// {
+        	// 	cout<<dp[i]<<" ";
+        	// }
+        // int *a=new int[1000001];
+        // rep(i,0,1000001)
+        // {
+        // 	a[i]=1;
+ 
+        // }
+      
+        while(t--)
+        {
+        	int n;
+        	cin>>n;
+        	int *a=new int[n];
+        	ll s=0;
+        	int *b=new int[n];
+ 
+        	rep(i,0,n)
+        	{
+        		cin>>a[i];
+        		s+=a[i];
+        	}
+        	
+        	
+        	sort(a,a+n);
+        	b[0]=a[0];
+        	// rep(i,0,n)
+        	// {
+        		// cout<<a[i]<<" ";
+        	// }cout<<endl;
+        	rep(i,1,n)
+        	{
+        		b[i]=b[i-1];
+        		b[i]+=a[i];
+        	}
+        	ll mn=LLONG_MAX;
+        	// rep(i,0,n)
+        	// {
+        	// 	ll c=(i+1)*a[i]-b[i];
+        	// 	// cout<<b[i]<<" "<<c<<" ";
+        	// 	c+=(s-b[i])-(n-i-1)*a[i];
+        	// 	// cout<<c<<endl;
+        	// 	mn=mini(mn,c);
+        	// }
+        	// ll avg=s/n;
+        	ll cc1=0;
+        	ll cc2=0;
+        	// rep(i,maxi(0,avg-250),avg+250)
+        	// {
+        		// cc=0;
+        		rep(i,0,n)
+        		{
+        			cc1+=abs(a[n/2]-a[i]);
+        			if(n>2)
+        			{
+        			cc2+=abs(a[n/2+1]-a[i]);
+        		}
+        		}
+        		// mn=mini(mn,cc);
+        	// }
+        		if(n>2)
+        		{
+        	cout<<mini(cc1,cc2)<<endl;
+        }
+        else
+        {
+        	cout<<cc1;
+        	// cout<<mn;
+        }
+        	
+        }
+        
+        #ifndef ONLINE_JUDGE
+            printf("\nRun Time -> %.10fs\n", (double)(clock()-tStart) / CLOCKS_PER_SEC);
+            #endif
+}
